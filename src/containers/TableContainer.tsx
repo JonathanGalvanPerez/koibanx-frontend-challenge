@@ -65,6 +65,21 @@ export default function TableContainer() {
     );
   }, [activeFilter, order, page, queryClient, searchData]);
 
+  const placeholder = (
+    <Stack align="center" w={{ base: "100%", lg: "80%" }} mx="auto">
+      <Skeleton h="30px" w="100%" />
+      <Skeleton h="30px" w="100%" />
+      <Skeleton h="30px" w="100%" />
+      <Skeleton h="30px" w="100%" />
+      <Skeleton h="30px" w="100%" />
+      <Skeleton h="30px" w="100%" />
+      <Skeleton h="30px" w="100%" />
+      <Skeleton h="30px" w="100%" />
+      <Skeleton h="30px" w="100%" />
+      <Skeleton h="30px" w="50%" />
+    </Stack>
+  );
+
   return (
     <Box
       w={{ base: "100%", lg: "80%" }}
@@ -79,6 +94,9 @@ export default function TableContainer() {
         setOrder={setOrder}
         resetPage={() => setPage(1)}
       />
+      {data === undefined ? (
+        placeholder
+      ) : (
         <Box>
           <Tabs variant="soft-rounded">
             <TabList>
@@ -105,6 +123,7 @@ export default function TableContainer() {
             isPreviousData={isPreviousData}
           />
         </Box>
+      )}
     </Box>
   );
 }
