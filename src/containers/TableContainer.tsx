@@ -16,6 +16,7 @@ import SearchBar from "../components/SearchBar";
 import DataTable from "../components/DataTable";
 import Commerce from "../models/Commerce.model";
 import Pagination from "../components/Pagination";
+import Filters from "../components/Filters";
 
 const ROWS_PER_PAGE = 10;
 const fields: Array<Array<{ key: keyof Commerce; name: string }>> = [
@@ -62,6 +63,13 @@ export default function TableContainer() {
       px={{ base: "10px" }}
     >
       <SearchBar onSearch={setSearchData} />
+      <Filters
+        activeFilter={activeFilter}
+        order={order}
+        setActiveFilter={setActiveFilter}
+        setOrder={setOrder}
+        resetPage={() => setPage(1)}
+      />
       <DataTable data={data.data} fields={fields[0]} />
       <Pagination
             page={page}
