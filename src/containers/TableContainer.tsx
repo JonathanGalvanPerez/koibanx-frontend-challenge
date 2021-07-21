@@ -10,13 +10,13 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import { useQuery, useQueryClient } from "react-query";
-import getQuery from "../utils/getQuery";
-import { getData } from "../services/HttpService";
-import SearchBar from "../components/SearchBar";
 import DataTable from "../components/DataTable";
-import Commerce from "../models/Commerce.model";
+import SearchBar from "../components/SearchBar";
+import { getData } from "../services/HttpService";
+import getQuery from "../utils/getQuery";
 import Pagination from "../components/Pagination";
 import Filters from "../components/Filters";
+import Commerce from "./../models/Commerce.model";
 
 const ROWS_PER_PAGE = 10;
 const fields: Array<Array<{ key: keyof Commerce; name: string }>> = [
@@ -27,8 +27,18 @@ const fields: Array<Array<{ key: keyof Commerce; name: string }>> = [
     { key: "currentBalance", name: "Balance Actual" },
     { key: "active", name: "Activo" },
     { key: "lastSale", name: "Última Venta" },
-  ]
-]
+  ],
+  [
+    { key: "id", name: "ID" },
+    { key: "name", name: "Comercio" },
+    { key: "concept1", name: "Concepto 1" },
+    { key: "concept2", name: "Concepto 2" },
+    { key: "concept3", name: "Concepto 3" },
+    { key: "concept4", name: "Concepto 4" },
+    { key: "concept5", name: "Concepto 5" },
+    { key: "concept6", name: "Concepto 6" },
+  ],
+];
 
 export default function TableContainer() {
   const [searchData, setSearchData] = useState<string>("");
@@ -55,7 +65,6 @@ export default function TableContainer() {
     );
   }, [activeFilter, order, page, queryClient, searchData]);
 
-
   return (
     <Box
       w={{ base: "100%", lg: "80%" }}
@@ -70,8 +79,24 @@ export default function TableContainer() {
         setOrder={setOrder}
         resetPage={() => setPage(1)}
       />
-      <DataTable data={data.data} fields={fields[0]} />
-      <Pagination
+        <Box>
+          <Tabs variant="soft-rounded">
+            <TabList>
+              <Tab _selected={{ color: "white", bg: "#04AA6D" }}>
+                Información general
+              </Tab>
+              <Tab _selected={{ color: "white", bg: "#04AA6D" }}>Conceptos</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel px={0}>
+                <DataTable data={data.data} fields={fields[0]} />
+              </TabPanel>
+              <TabPanel px={0}>
+                <DataTable data={data.data} fields={fields[1]} />
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+          <Pagination
             page={page}
             pages={data.pages}
             limit={data.limit}
@@ -79,6 +104,7 @@ export default function TableContainer() {
             setPage={setPage}
             isPreviousData={isPreviousData}
           />
+        </Box>
     </Box>
   );
 }
