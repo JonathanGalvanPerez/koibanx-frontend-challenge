@@ -15,6 +15,7 @@ import { getData } from "../services/HttpService";
 import SearchBar from "../components/SearchBar";
 import DataTable from "../components/DataTable";
 import Commerce from "../models/Commerce.model";
+import Pagination from "../components/Pagination";
 
 const ROWS_PER_PAGE = 10;
 const fields: Array<Array<{ key: keyof Commerce; name: string }>> = [
@@ -62,6 +63,14 @@ export default function TableContainer() {
     >
       <SearchBar onSearch={setSearchData} />
       <DataTable data={data.data} fields={fields[0]} />
+      <Pagination
+            page={page}
+            pages={data.pages}
+            limit={data.limit}
+            total={data.total}
+            setPage={setPage}
+            isPreviousData={isPreviousData}
+          />
     </Box>
   );
 }
