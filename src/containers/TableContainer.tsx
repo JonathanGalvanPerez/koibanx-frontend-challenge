@@ -9,6 +9,7 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
+import SearchBar from "../components/SearchBar";
 
 
 export default function TableContainer() {
@@ -23,6 +24,7 @@ export default function TableContainer() {
       mx={{ lg: "auto" }}
       px={{ base: "10px" }}
     >
+      <SearchBar onSearch={setSearchData} />
     </Box>
   );
 }
